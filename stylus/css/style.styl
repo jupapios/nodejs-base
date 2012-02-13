@@ -1,3 +1,4 @@
+@import '_variables'
 /*
  * HTML5 Boilerplate
  *
@@ -45,8 +46,8 @@ html
 	-ms-text-size-adjust 100%
 
 html, button, input, select, textarea
-	font-family sans-serif
-	color #222
+	font-family font
+	color font-color
 
 body
 	margin 0
@@ -60,27 +61,27 @@ body
  */
 
 ::-moz-selection
-	background #ccffff
-	color gray
-	text-shadow none
+	background selection-bg
+	color selection-color
+	text-shadow selection-text-shadow
 
 ::selection
-	background #ccffff
-	color gray
-	text-shadow none
+	background selection-bg
+	color selection-color
+	text-shadow selection-text-shadow
 
 /* =============================================================================
 	 Links
 	 ========================================================================== */
 
 a
-	color #00e
+	color a-color
 
 	&:visited
-		color #551a8b
+		color a-visited
 
 	&:hover
-		color #06e
+		color a-hover
 
 	&:focus
 		outline thin dotted
@@ -309,7 +310,7 @@ textarea
 input:valid, textarea:valid
 
 input:invalid, textarea:invalid
-	background-color #f0dddd
+	background-color input-invalid
 
 /* =============================================================================
 	 Tables
