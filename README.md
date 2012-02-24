@@ -1,4 +1,4 @@
 # [Nodejs Base]
 
-My base for start projects, it use html5boilerplate
-and jade, stylus for simplified the front.
+My base for start projects, it uses html5boilerplate
+and jade, stylus, coffee-script for simplified the front.
