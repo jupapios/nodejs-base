@@ -51,12 +51,11 @@ app.error (err, req, res, next) ->
 # Coffee to JS compilation
 app.get '/js/:file.js', (req, res) ->
 	try
-		res.header 'Content-Type', 'application/x-javascript'
 		cs = fs.readFileSync(__dirname+'/coffee/'+req.params.file+'.coffee', 'ascii')
 		js = coffee.compile cs
+		res.header 'Content-Type', 'application/x-javascript'
 		res.send js
 	catch error
-		res.header 'Content-Type', 'text/html; charset=utf-8'
 		res.render '404', {
 			layout: false
 			status: 404

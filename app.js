@@ -64,12 +64,11 @@
   app.get('/js/:file.js', function(req, res) {
     var cs, js;
     try {
-      res.header('Content-Type', 'application/x-javascript');
       cs = fs.readFileSync(__dirname + '/coffee/' + req.params.file + '.coffee', 'ascii');
       js = coffee.compile(cs);
+      res.header('Content-Type', 'application/x-javascript');
       return res.send(js);
     } catch (error) {
-      res.header('Content-Type', 'text/html; charset=utf-8');
       return res.render('404', {
         layout: false,
         status: 404
