@@ -19,6 +19,7 @@ app.configure () ->
 	app.use express.bodyParser()
 	app.use express.methodOverride()
 	app.use express.cookieParser()
+	# Stylus to CSS compilation
 	app.use stylus.middleware {
 		src: __dirname + '/stylus'
 		dest: __dirname + '/public'
@@ -29,24 +30,19 @@ app.configure () ->
 				.use(nib())
 				.import('nib')
 	}
+	# Static directory
 	app.use express.static __dirname + '/public'
 	app.use app.router
+
+	# Error 404
 	app.use (req, res, next) ->
-		res.render '404', {
-			layout: false
-			status: 404
-		}
-	app.use (err, req, res, next) ->
-		res.send '500', { status: err.status || 500, error: err }
+		routes.not_found res
 
 app.configure 'development', () ->
 	app.use express.errorHandler { dumpExceptions: true, showStack: true }
 
 app.configure 'production', () ->
 	app.use express.errorHandler()
-
-app.error (err, req, res, next) ->
-	console.log(err, req, res, next)
 
 # Coffee to JS compilation
 app.get '/js/:file.js', (req, res) ->
@@ -56,11 +52,8 @@ app.get '/js/:file.js', (req, res) ->
 		res.header 'Content-Type', 'application/x-javascript'
 		res.send js
 	catch error
-		res.render '404', {
-			layout: false
-			status: 404
-		}
-
+		routes.not_found res
+		
 # Routes
 
 app.get '/', routes.index

@@ -32,17 +32,8 @@
     }));
     app.use(express.static(__dirname + '/public'));
     app.use(app.router);
-    app.use(function(req, res, next) {
-      return res.render('404', {
-        layout: false,
-        status: 404
-      });
-    });
-    return app.use(function(err, req, res, next) {
-      return res.send('500', {
-        status: err.status || 500,
-        error: err
-      });
+    return app.use(function(req, res, next) {
+      return routes.not_found(res);
     });
   });
 
@@ -57,10 +48,6 @@
     return app.use(express.errorHandler());
   });
 
-  app.error(function(err, req, res, next) {
-    return console.log(err, req, res, next);
-  });
-
   app.get('/js/:file.js', function(req, res) {
     var cs, js;
     try {
@@ -69,10 +56,7 @@
       res.header('Content-Type', 'application/x-javascript');
       return res.send(js);
     } catch (error) {
-      return res.render('404', {
-        layout: false,
-        status: 404
-      });
+      return routes.not_found(res);
     }
   });
 
